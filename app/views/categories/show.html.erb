@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @category.name %></h1>
+<ul>
+  <% @categories.each do|product| %>
+    <li>
+      <%= product.name %> 
+      <%#= product.price %> 
+      <%= link_to 'X',category_path(product.id), method: :delete %>
+     </li>
+  <% end %>
+</ul>
+
+<%= form_with(model:[@category, @product], local: true) do |form| %>
+  <%= form.hidden_field :category_id, value: @category.id %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name , id: :product_name %>
+  </div>
+  <div class="field">
+  <%= form.label :price %>
+  <%= form.number_field :price, id: :product_name %>
+</div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>
